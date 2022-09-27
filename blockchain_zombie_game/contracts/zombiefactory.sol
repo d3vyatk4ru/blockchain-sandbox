@@ -19,11 +19,13 @@ contract ZombieFactory {
     mapping (uint => address) public zombieToOwner;
     mapping (address => uint) ownerZombieCount;
 
-    function _createZombie(string _name, uint _dna) private {
+    // internal - можно вызвать в дочернем классе
+    function _createZombie(string  _name, uint _dna) internal {
 
         // возвращает номер вставленного элемента + 1
         uint id = zombies.push(Zombie(_name, _dna)) - 1;
 
+        // msg.sender - тот, кто вызвал функцию
         zombieToOwner[id] = msg.sender;
         ownerZombieCount[msg.sender]++;
 
